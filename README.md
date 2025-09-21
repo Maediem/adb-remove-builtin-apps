@@ -149,11 +149,12 @@ adb shell pm uninstall --user 0 com.sec.android.app.sbrowser &&
 adb shell pm uninstall --user 0 com.sec.android.app.shealth &&
 adb shell pm uninstall --user 0 com.samsung.android.app.watchmanager &&
 adb shell pm uninstall --user 0 com.samsung.android.app.watchmanagerstub &&
+adb shell pm uninstall --user 0 com.samsung.android.game.gamehome &&
 adb shell pm uninstall --user 0 com.samsung.android.spay &&
 adb shell pm uninstall --user 0 com.samsung.sree &&
 adb shell pm uninstall --user 0 com.samsung.android.smartswitchassistant &&
 adb shell pm uninstall --user 0 com.sec.android.easyMover &&
-adb shell pm uninstall --user 0 com.sec.android.easyMover.agent &&
+adb shell pm uninstall --user 0 com.sec.android.easyMover.Agent &&
 adb shell pm uninstall --user 0 com.samsung.android.oneconnect &&
 adb shell pm uninstall --user 0 com.samsung.android.bixby.agent &&
 adb shell pm uninstall --user 0 com.samsung.android.bixby.wakeup &&
