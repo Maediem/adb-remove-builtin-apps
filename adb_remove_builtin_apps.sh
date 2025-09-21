@@ -63,7 +63,8 @@ com.samsung.android.spay                    # Samsung - Samsung Pay
 com.samsung.sree                            # Samsung - Global Goals
 com.samsung.android.smartswitchassistant    # Samsung - Smart Switch (initial setup)
 com.sec.android.easyMover                   # Samsung - Smart Switch
-com.sec.android.easyMover.agent             # Samsung - Smart Switch Agent
+com.sec.android.easyMover.Agent             # Samsung - Smart Switch Agent
+com.samsung.android.game.gamehome           # Samsung - Game Hub
 com.samsung.android.oneconnect              # Samsung - SmartThings
 com.samsung.android.bixby.agent             # Samsung - Bixby Agent
 com.samsung.android.bixby.wakeup            # Samsung - Bixby Wakeup
@@ -91,8 +92,6 @@ com.samsung.android.app.spage               # Samsung - Free/Daily feed (news, c
 # MAIN SCRIPT #
 ###############
 
-
-
 # Check if adb is installed
 if ! command -v adb >/dev/null 2>&1; then
     echo -e "adb command ${RED}not found${RESET_COLOR}. Please install adb."
@@ -117,24 +116,18 @@ echo -e "ADB is ready. ${BLUE}${device_count}${RESET_COLOR} device(s) connected.
 
 echo -e "${GREEN}Starting${RESET_COLOR} app removal for ${BLUE}user 0${RESET_COLOR}..."
 
+# Getting a list of all installed packages
+installed_pkgs=$(adb shell pm list packages | sed 's/package://')
+
 for pkg in "${PACKAGES[@]}"; do
-    # Check if package is installed
-    if adb shell pm list packages | grep -q "^package:$pkg$"; then
-        if [[ "$pkg" == *messaging* ]]; then
-            if [ "$(adb shell pm list packages | grep -c "messaging")" -gt 1 ]; then
-                echo "There is more than 1 messaging app. Proceeding."
-            else
-                echo -e "Cannot delete ${YELLOW}${pkg}${RESET_CLOR} since there is no other messaging app."
-                continue  # go to the next pkg in the loop
-            fi
-        fi
-        
-        echo -e "Removing ${YELLOW}${pkg}${RESET_COLOR}..."
-        adb shell pm uninstall --user 0 "$pkg"
+    match=$(echo "$installed_pkgs" | grep -i "$pkg" | head -n 1)
+    
+    if [[ -n "$match" ]]; then
+        echo "Removing $match"
+        adb shell pm uninstall --user 0 "$match"
     else
-        echo -e "Package ${YELLOW}${pkg}${RESET_COLOR} not installed, ${BLUE}skipping${RESET_COLOR}."
+        echo "Package $pkg not installed, skipping."
     fi
 done
 
 echo -e "App removal ${GREEN}completed${RESET_COLOR}."
-
