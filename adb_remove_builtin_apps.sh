@@ -58,14 +58,17 @@ com.microsoft.skydrive                      # Microsoft - OneDrive
 com.sec.android.app.sbrowser                # Samsung - Internet Browser
 com.sec.android.app.shealth                 # Samsung - Samsung Health
 com.samsung.android.app.watchmanager        # Samsung - Galaxy Wearable
+com.samsung.android.app.watchmanagerstub    # Samsung - Galaxy Wearable auto prompt to install
 com.samsung.android.spay                    # Samsung - Samsung Pay
 com.samsung.sree                            # Samsung - Global Goals
 com.samsung.android.smartswitchassistant    # Samsung - Smart Switch (initial setup)
-com.sec.android.easyMove                    # Samsung - Smart Switch
+com.sec.android.easyMover                   # Samsung - Smart Switch
+com.sec.android.easyMover.agent             # Samsung - Smart Switch Agent
 com.samsung.android.oneconnect              # Samsung - SmartThings
 com.samsung.android.bixby.agent             # Samsung - Bixby Agent
 com.samsung.android.bixby.wakeup            # Samsung - Bixby Wakeup
 com.samsung.android.bixby.ondevice.enus     # Samsung - Bixby on-device English US
+com.samsung.android.visionintelligence      # Samsung - Bixby Vision
 com.samsung.android.bixbyvision.framework   # Samsung - Bixby Vision Framework
 com.samsung.android.app.find                # Samsung - Find My Mobile
 com.samsung.android.messaging               # Samsung - Messages
