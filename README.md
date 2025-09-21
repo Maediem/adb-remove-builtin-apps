@@ -1,6 +1,6 @@
 # ADB App Removal Script
 
-This repository provides tools to safely reduce **bloatware** (unnecessary pre-installed apps) on Samsung Android devices using **ADB** without **root**. Some applications require to uninstall update and disable the application. By uninstalling the package via adb command, it will allow to completely remove the application.
+This repository provides tools to safely reduce **bloatware** (unnecessary pre-installed apps) on Samsung Android devices using **ADB** without **root**. By default, some applications require to uninstall update and disable the application. By uninstalling the package via adb command, it will allow to completely remove the application.
 
 The focus is on removing apps from Samsung, Google, Microsoft, Facebook, and other third-party vendors that are safe to uninstall. Most of these apps can be reinstalled at any time from the **Samsung Galaxy Store** or **Google Play Store**, giving you more control over your device.
 
@@ -12,6 +12,50 @@ The focus is on removing apps from Samsung, Google, Microsoft, Facebook, and oth
 > ⚠️ Before running the commands/script, please check the packages in the bash script to get more information about the application. Remove the package line related to the application you want to keep.
 >
 > ✅ Test successful with bash script on: S24 Ultra
+>
+> You can also install an application such as `App Inspector` from Google Play Store to get a list of the applications and their package name.
+
+---
+
+## Why use ADB to remove bloatwares?
+
+- **Removes apps from your launcher and background**:  
+  The app disappears from your app drawer and won’t run background services, saving CPU cycles and battery.
+
+- **Stops auto-start and notifications**:  
+  Disabled apps can’t start themselves, push notifications, or interfere with your workflow.
+
+- **Reduces clutter**:  
+  Your phone feels cleaner and less overwhelming when unnecessary pre-installed apps are hidden.
+
+- **Frees up user data and cache**:  
+  While the APK remains, uninstalling clears all associated user data, caches, and updates, freeing meaningful storage space.
+
+- **No root required**:  
+  Unlike fully deleting system apps, this method doesn’t void your warranty or trip Samsung Knox.
+
+- **Reversible**:  
+  You can easily restore apps.
+
+---
+
+## Limitations
+
+- **Reinstallation behavior**:  
+  If you reinstall an app from the **Samsung Galaxy Store** or **Google Play Store**, it will come back as a normal user app.  
+  However, if the app was originally a **system app** that you removed with `adb uninstall --user 0`, you will still need to use **ADB** again to uninstall it.
+
+- **Factory reset**:  
+  Uninstalling with `--user 0` only removes the app for the current user. The app’s package remains in the system partition.  
+  This means that after a **factory reset**, all pre-installed (system) apps will be restored.
+
+- **No storage savings**:  
+  Because the APKs stay on the system partition, uninstalling in this way frees up **data and cache space**, but does **not** reduce total system storage usage.
+
+- **Updates may reinstall apps**:  
+  Major system updates (e.g., One UI or Android version upgrades) can also re-enable or reinstall pre-loaded apps, requiring you to repeat the process.
+
+> 📌 If you want to truly delete system apps, you would need **root access** to your device which is not recommended because it will void your warranty.
 
 ---
 
@@ -62,8 +106,8 @@ The focus is on removing apps from Samsung, Google, Microsoft, Facebook, and oth
 #### Bash Script
 
 1. Download the bash script
-2. Open the directory
-3. Open the terminal
+2. Open the directory of the downloaded bash script
+3. Open the terminal in the directory
 4. Change the permissions: `chmod 700 adb_remove_builtin_apps.sh`
 5. Run the script: `./adb_remove_builtin_apps.sh`
 
@@ -134,8 +178,10 @@ adb shell pm uninstall --user 0 com.samsung.android.app.spage
 
 - It is recommended to disable `USB debugging` and `Stay awake` when you are done.
 - ⚠️ You can delete more packages **at your own risk** ⚠️
-  - Deleting important packages can break features and causee crash-loop.
-  - Easiest fix: Boot your device in `Recovery Mode` and perform a `Factory reset`.
+  - Deleting important packages can break features and cause crash-loop.
+  - Easiest fix:
+    1. Reinstall the package via adb command (see next section).
+    2. If you cannot use the adb command to reinstall the packages, boot your device in `Recovery Mode` and perform a `Factory reset`.
 - Performing a factory reset will reset your phone to the initial state where some built-in apps cannot be completely uninstalled.
 - You can reinstall packages you deleted if needed (see next section).
 
